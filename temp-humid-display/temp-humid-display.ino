@@ -35,11 +35,11 @@ byte loading2[] = {
   0x03
 };
 
-byte customChar3[] = {
-  0x0C,
-  0x12,
-  0x12,
-  0x0C,
+byte degree[] = {
+  0x06,
+  0x09,
+  0x09,
+  0x06,
   0x00,
   0x00,
   0x00,
@@ -54,7 +54,7 @@ void setup() {
 
   lcd.createChar(0, loading1);
   lcd.createChar(1, loading2);
-  lcd.createChar(2, customChar3);
+  lcd.createChar(2, degree);
 
   // Initialize LCD
   lcd.init();
