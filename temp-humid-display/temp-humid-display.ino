@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <DHT.h>
+#include <LittleFS.h>
 
 // Define I2C LCD address and size
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -45,6 +46,26 @@ byte degree[] = {
   0x00,
   0x00
 };
+
+// Function to initialize LittleFS
+void initLittleFS() {
+  if (!LittleFS.begin()) {
+    Serial.println("An error has occurred while mounting LittleFS");
+  } else {
+    Serial.println("LittleFS mounted successfully");
+  }
+}
+
+// Function to log data
+void logData(float temperature, float humidity) {
+  File file = LittleFS.open("/data_log.txt", FILE_APPEND);
+  if (!file) {
+    Serial.println("Failed to open file for writing");
+    return;
+  }
+  file.printf("Temperature: %.2f °C, Humidity: %.2f %%\n", temperature, humidity);
+  file.close();
+}
 
 void setup() {
   // Initialize Serial Monitor
@@ -150,6 +171,9 @@ void loop() {
   lcd.print("Humid:   ");
   lcd.print(humidity);
   lcd.print(" %   ");  // Added spaces to clear previous characters
+
+  // Log data to file
+  logData(temperature, humidity);
 
   delay(2000);  // Wait a few seconds between measurements.
 }
