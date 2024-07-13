@@ -13,7 +13,7 @@ DHT dht(DHTPIN, DHTTYPE);
 int i = 0;
 int j = 0;
 
-byte customChar1[] = {
+byte loading1[] = {
   0x18,
   0x18,
   0x18,
@@ -24,7 +24,7 @@ byte customChar1[] = {
   0x18
 };
 
-byte customChar2[] = {
+byte loading2[] = {
   0x03,
   0x03,
   0x03,
@@ -52,8 +52,8 @@ void setup() {
   Serial.println("Initializing...");
   int y = 0;
 
-  lcd.createChar(0, customChar1);
-  lcd.createChar(1, customChar2);
+  lcd.createChar(0, loading1);
+  lcd.createChar(1, loading2);
   lcd.createChar(2, customChar3);
 
   // Initialize LCD
